@@ -1,10 +1,12 @@
-const initState = {};
-
-const tasksReducer = (state = initState, action) => {
-  switch (action.type) {
-    default:
-      break;
-  }
+const initState = {
+  todoList: [],
 };
 
-export default tasks;
+export const tasksReducer = (state = initState, action) => {
+  switch (action.type) {
+    default:
+      return {
+        ...state,
+      };
+  }
+};

@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import tasks from "../../../todo_list/todo_list/store/_reducers/tasks";
+import { tasksReducer } from "../store/_reducers/tasks";
 
 const todoApp = combineReducers({
-  tasks,
+  tasksReducer,
 });
 
 export default todoApp;

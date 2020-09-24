@@ -1,7 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
-import { State } from "react-native-gesture-handler";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 export default function App() {
   const [textValue, setTextValue] = useState("Steven CR?");
@@ -11,11 +12,13 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text>{textValue}</Text>
-      <Button title="click me" onPress={() => handleButtonClick()}></Button>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <Text>{textValue}</Text>
+        <Button title="click me" onPress={() => handleButtonClick()}></Button>
+        <StatusBar style="auto" />
+      </View>
+    </Provider>
   );
 }
 

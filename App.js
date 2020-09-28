@@ -4,13 +4,14 @@ import { StyleSheet, View } from "react-native";
 import { Provider } from "react-redux";
 import store from "./store/store";
 import { AddTodo } from "./components/AddTodo";
-
+import { TodosList } from "./components/todosList";
 export default function App() {
   return (
     <Provider store={store}>
       <View style={styles.container}>
-        <AddTodo />
         <StatusBar style="auto" />
+        <AddTodo />
+        <TodosList />
       </View>
     </Provider>
   );

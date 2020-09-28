@@ -1,5 +1,5 @@
 const initState = {
-  todoList: [],
+  todoList: ["cr", "a teraz cr"],
 };
 
 export const tasksReducer = (state = initState, action) => {

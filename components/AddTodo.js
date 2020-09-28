@@ -1,24 +1,23 @@
 import React, { useState } from "react";
 import { TextInput, StyleSheet, View, Text, Button } from "react-native";
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "red",
 
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  Text: {
+    fontSize: 25,
+    width: 30,
+  },
+  Input: {},
+});
 export const AddTodo = () => {
   const [value, onChangeText] = useState();
-  const styles = StyleSheet.create({
-    container: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "baseline",
-    },
-    Text: {
-      marginLeft: 5,
-      fontSize: 25,
-      width: 30,
-    },
-    Input: {
-      height: 40,
-      paddingLeft: 6,
-    },
-  });
+
+  const handleAddTodo = () => {};
 
   return (
     <View style={styles.container}>
@@ -29,7 +28,9 @@ export const AddTodo = () => {
         onChangeText={(text) => onChangeText(text)}
       />
 
-      {value && <Button style={styles.Text} title="+" />}
+      {value?.length > 2 && (
+        <Button style={styles.Text} title="+" onPress={() => handleAddTodo()} />
+      )}
     </View>
   );
 };

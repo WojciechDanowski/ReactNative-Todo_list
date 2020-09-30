@@ -1,21 +1,19 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
-import { State } from "react-native-gesture-handler";
-
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { Provider } from "react-redux";
+import store from "./store/store";
+import { AddTodo } from "./components/AddTodo";
+import { TodosList } from "./components/todosList";
 export default function App() {
-  const [textValue, setTextValue] = useState("Steven CR?");
-
-  handleButtonClick = () => {
-    setTextValue("Adrian CR?");
-  };
-
   return (
-    <View style={styles.container}>
-      <Text>{textValue}</Text>
-      <Button title="click me" onPress={() => handleButtonClick()}></Button>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={store}>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <AddTodo />
+        <TodosList />
+      </View>
+    </Provider>
   );
 }
 

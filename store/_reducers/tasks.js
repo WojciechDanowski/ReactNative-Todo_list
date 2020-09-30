@@ -13,7 +13,7 @@ export const tasksReducer = (state = initState, action) => {
     case ADD_TODO: {
       return {
         ...state,
-        ...[state.todoList].concat(action.payload),
+        todoList: [...state.todoList, action.payload],
       };
     }
     case GET_TODOS: {

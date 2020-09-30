@@ -6,8 +6,6 @@ import { addTodo, getTodos } from "../store/_actions/todoServices";
 import { v4 as uuidv4 } from "uuid";
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "lightGray",
-
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -17,27 +15,19 @@ const styles = StyleSheet.create({
     fontSize: 25,
     width: 30,
   },
-  Input: {},
+  Input: {
+    color: "#000",
+  },
 });
 
 export const AddTodo = () => {
-  const [value, onChangeText] = useState();
+  const [value, setValue] = useState("");
   const dispatch = useDispatch();
-  const formData = useSelector((state) => state.tasksReducer.form);
   const handleAddTodo = () => {
-    const payload = formData;
-
+    const payload = { id: uuidv4(), name: value };
     dispatch(addTodo(payload));
+    setValue("");
     dispatch(getTodos());
-  };
-  const onChangeTexte = (e) => {
-    dispatch({
-      type: SET_NAME,
-      payload: {
-        name: e,
-        id: uuidv4(),
-      },
-    });
   };
   return (
     <View style={styles.container}>
@@ -45,10 +35,10 @@ export const AddTodo = () => {
         placeholder="Enter your activity there"
         style={styles.Input}
         value={value}
-        onChangeText={onChangeTexte}
+        onChangeText={(text) => setValue(text)}
       />
 
-      {formData.name?.length > 2 && (
+      {value.length > 2 && (
         <Button style={styles.Text} title="+" onPress={() => handleAddTodo()} />
       )}
     </View>

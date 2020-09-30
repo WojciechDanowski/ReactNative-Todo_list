@@ -1,4 +1,4 @@
-import { ADD_TODO, GET_TODOS, SET_FORM, SET_NAME } from "../actions";
+import { ADD_TODO, GET_TODOS, DELETE_TODO, SET_NAME } from "../actions";
 
 const initState = {
   todoList: [],
@@ -13,7 +13,7 @@ export const tasksReducer = (state = initState, action) => {
     case ADD_TODO: {
       return {
         ...state,
-        ...[state.todoList, action.payload.name],
+        ...[state.todoList].concat(action.payload),
       };
     }
     case GET_TODOS: {
@@ -28,6 +28,13 @@ export const tasksReducer = (state = initState, action) => {
         form: action.payload,
       };
     }
+    case DELETE_TODO:
+      return {
+        ...state,
+        todoList: state.todoList.filter(
+          (todo) => todo.id !== action.payload.id
+        ),
+      };
     default:
       return {
         ...state,

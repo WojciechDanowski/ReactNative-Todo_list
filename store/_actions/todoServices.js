@@ -1,4 +1,4 @@
-import { ADD_TODO, GET_TODOS, EDIT_TODO, DELETE_TODO } from "../actions";
+import { ADD_TODO, GET_TODOS, DELETE_TODO } from "../actions";
 export const addTodo = (todo) => {
   return async (dispatch) => {
     try {
@@ -34,31 +34,12 @@ export const deleteTodo = (id) => {
           },
         }
       );
-      const deletedTodo = response.json();
-      dispatch({ type: DELETE_TODO, payload: deletedTodo });
+      dispatch({
+        type: DELETE_TODO,
+        payload: { id },
+      });
     } catch (error) {
       console.log(error);
-    }
-  };
-};
-
-export const editTodo = (id) => {
-  return async (dispatch) => {
-    try {
-      const response = await fetch(
-        `https://react-native-todo-list-461a3.firebaseio.com/todos/${id}.json`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
-      const editedTodo = resopnse.json();
-      dispatch({ type: EDIT_TODO, payload: editedTodo });
-    } catch (e) {
-      console.log(e);
     }
   };
 };
@@ -78,7 +59,7 @@ export const getTodos = () => {
       );
       const responseBody = await response.json();
       let todos = [];
-
+      console.log(responseBody);
       Object.keys(responseBody || {}).forEach((key) => {
         const todo = { ...responseBody[key], id: key };
         todos = [...todos, todo];

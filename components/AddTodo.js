@@ -1,12 +1,17 @@
 import React, { useState } from "react";
+import { SET_FORM, SET_NAME } from "../store/actions";
 import { TextInput, StyleSheet, View, Text, Button } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { addTodo } from "../store/_actions/todoServices";
+import { v4 as uuidv4 } from "uuid";
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "red",
+    backgroundColor: "lightGray",
 
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    marginBottom: 10,
   },
   Text: {
     fontSize: 25,
@@ -14,21 +19,35 @@ const styles = StyleSheet.create({
   },
   Input: {},
 });
+
 export const AddTodo = () => {
   const [value, onChangeText] = useState();
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state.tasksReducer.form);
+  const handleAddTodo = () => {
+    const payload = formData;
 
-  const handleAddTodo = () => {};
-
+    dispatch(addTodo(payload));
+  };
+  const onChangeTexte = (e) => {
+    dispatch({
+      type: SET_NAME,
+      payload: {
+        name: e,
+        id: uuidv4(),
+      },
+    });
+  };
   return (
     <View style={styles.container}>
       <TextInput
         placeholder="Enter your activity there"
         style={styles.Input}
         value={value}
-        onChangeText={(text) => onChangeText(text)}
+        onChangeText={onChangeTexte}
       />
 
-      {value?.length > 2 && (
+      {formData.name?.length > 2 && (
         <Button style={styles.Text} title="+" onPress={() => handleAddTodo()} />
       )}
     </View>

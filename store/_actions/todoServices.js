@@ -1,3 +1,4 @@
+import { ADD_TODO, GET_TODOS, EDIT_TODO, DELETE_TODO } from "../actions";
 export const addTodo = (todo) => {
   return async (dispatch) => {
     try {
@@ -13,9 +14,7 @@ export const addTodo = (todo) => {
         }
       );
 
-      AddedTodo = response.json();
-
-      dispatch({ type: ADD_TODO, payload: AddedTodo });
+      dispatch({ type: ADD_TODO, payload: todo });
     } catch (error) {
       console.log(error);
     }
@@ -77,8 +76,15 @@ export const getTodos = () => {
           },
         }
       );
-      const todoList = response.json();
-      dispatch({ type: GET_TODOLIST, payload: todoList });
+      const responseBody = await response.json();
+      let todos = [];
+
+      Object.keys(responseBody || {}).forEach((key) => {
+        const todo = { ...responseBody[key], id: key };
+        todos = [...todos, todo];
+      });
+
+      dispatch({ type: GET_TODOS, payload: todos });
     } catch (e) {
       console.log(e);
     }

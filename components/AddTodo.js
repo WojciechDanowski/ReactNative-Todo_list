@@ -26,7 +26,6 @@ export const AddTodo = () => {
     const payload = { id: uuidv4(), name: value };
     dispatch(addTodo(payload));
     setValue("");
-    dispatch(getTodos());
   };
   return (
     <View style={styles.container}>

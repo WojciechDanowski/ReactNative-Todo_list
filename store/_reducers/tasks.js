@@ -11,6 +11,7 @@ const initState = {
 export const tasksReducer = (state = initState, action) => {
   switch (action.type) {
     case ADD_TODO: {
+      console.log(action.payload, "addtodo");
       return {
         ...state,
         todoList: [...state.todoList, action.payload],

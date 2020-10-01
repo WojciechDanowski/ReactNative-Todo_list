@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getTodos, deleteTodo } from "../store/_actions/todoServices";
@@ -23,6 +23,10 @@ const styles = StyleSheet.create({
   text: {
     alignSelf: "center",
   },
+  linetroughtText: {
+    alignSelf: "center",
+    textDecorationLine: "line-through",
+  },
   buttonsContainer: {
     display: "flex",
     flexDirection: "row",
@@ -33,7 +37,7 @@ const styles = StyleSheet.create({
 export const TodosList = () => {
   const todos = useSelector((state) => state.tasksReducer.todoList);
   const dispatch = useDispatch();
-
+  const [line, setLine] = useState(false);
   useEffect(() => {
     dispatch(getTodos());
   }, [dispatch]);
@@ -46,7 +50,12 @@ export const TodosList = () => {
       {todos.map((todo) => {
         return (
           <View key={todo.id} style={styles.container}>
-            <Text style={styles.text}>{todo.name}</Text>
+            <Text
+              onPress={() => setLine(!line)}
+              style={line === true ? styles.linetroughtText : styles.text}
+            >
+              {todo.name}
+            </Text>
             <View styles={styles.buttonsContainer}>
               <Button
                 onPress={() => handleTodoDelete(todo.id)}

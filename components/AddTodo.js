@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { SET_FORM, SET_NAME } from "../store/actions";
-import { TextInput, StyleSheet, View, Text, Button } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { TextInput, StyleSheet, View, Button } from "react-native";
+import { useDispatch } from "react-redux";
 import { addTodo, getTodos } from "../store/_actions/todoServices";
 import { v4 as uuidv4 } from "uuid";
 const styles = StyleSheet.create({

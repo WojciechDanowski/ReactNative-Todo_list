@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { getTodos, deleteTodo } from "../store/_actions/todoServices";
+
 const styles = StyleSheet.create({
   container: {
     marginBottom: 10,

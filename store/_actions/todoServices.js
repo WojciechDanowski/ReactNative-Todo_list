@@ -13,8 +13,8 @@ export const addTodo = (todo) => {
           body: JSON.stringify(todo),
         }
       );
-
-      dispatch({ type: ADD_TODO, payload: todo });
+      addedTodo = await response.json();
+      dispatch({ type: ADD_TODO, payload: addedTodo });
     } catch (error) {
       console.log(error);
     }
@@ -24,7 +24,7 @@ export const addTodo = (todo) => {
 export const deleteTodo = (id) => {
   return async (dispatch) => {
     try {
-      const response = await fetch(
+      await fetch(
         `https://react-native-todo-list-461a3.firebaseio.com/todos/${id}.json`,
         {
           method: "DELETE",
@@ -59,7 +59,7 @@ export const getTodos = () => {
       );
       const responseBody = await response.json();
       let todos = [];
-      console.log(responseBody);
+
       Object.keys(responseBody || {}).forEach((key) => {
         const todo = { ...responseBody[key], id: key };
         todos = [...todos, todo];
